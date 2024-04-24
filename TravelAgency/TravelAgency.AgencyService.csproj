@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AgencyService.Adapter.RabbitMQ\AgencyService.Adapter.RabbitMQ.csproj" />
     <ProjectReference Include="..\AgencyService.Adapter.RestAPI\AgencyService.Adapter.API.csproj" />
     <ProjectReference Include="..\AgencyService.Adapter.SQLServer\AgencyService.Adapter.SQLServer.csproj" />
     <ProjectReference Include="..\AgencyService.Core.Application\AgencyService.Core.Application.csproj" />

@@ -3,22 +3,29 @@ using AgencyService.Adapter.SQLServer.Persistance;
 using AgencyService.Adapter.SQLServer.Persistance.Interceptors;
 using AgencyService.Adapter.SQLServer.Repositories;
 using AgencyService.Core.Application.Ports.Driven;
+using Amazon;
 using LinqKit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Data.Common;
+using TravelAgency.SharedLibrary.AWS;
 
 namespace AgencyService.Adapter.SQLServer;
 public static class ConfigureServices
 {
     public static WebApplicationBuilder AddSqlServerServices(this WebApplicationBuilder builder)
     {
+        var awsEnv = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID");
+
+        builder.Configuration.AddAndConfigureSecretManager(builder.Environment, RegionEndpoint.EUNorth1);
+
         var connectionString = builder.Configuration.GetConnectionString("AgencyServiceDatabase");
 
-        if (string.IsNullOrEmpty(connectionString))
+        if (string.IsNullOrEmpty(connectionString) || awsEnv is null)
         {
             connectionString = builder.BuildConnectionStringFromUserSecrets();
         }
@@ -35,6 +42,21 @@ public static class ConfigureServices
         builder.Services.AddScoped<IAgencyServiceDbContext, AgencyServiceDbContext>();
 
         return builder;
+    }
+
+    public static async Task<WebApplication> InitializeDatabase(this WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var initialiser = scope.ServiceProvider.GetRequiredService<AgencyServiceDbContextInitialiser>();
+                await initialiser.InitialiseAsync();
+                await initialiser.SeedAsync();
+            }
+        }
+
+        return app;
     }
 
     private static IServiceCollection RegisterRepositories(this IServiceCollection services)

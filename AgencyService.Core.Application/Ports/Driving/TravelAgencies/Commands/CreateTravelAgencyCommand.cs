@@ -16,7 +16,7 @@ public sealed record CreateTravelAgencyCommandHandler : IRequestHandler<CreateTr
 
     public async Task<TravelAgencyAccount> Handle(CreateTravelAgencyCommand request, CancellationToken cancellationToken)
     {
-        var agency = await _repository.CreateAsync(request, cancellationToken);
+        var agency = await _repository.CreateAsync(request.UserId, cancellationToken);
 
         return agency;
     }

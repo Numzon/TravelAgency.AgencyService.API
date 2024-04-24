@@ -22,7 +22,7 @@ services:
         ACCEPT_EULA: "Y"
         SA_PASSWORD: "ergo.1234"
     ports:
-        - 2100:1433
+        - 2000:1433
     volumes:
         - sqlserver_data_container:/var/opt/mssql
 

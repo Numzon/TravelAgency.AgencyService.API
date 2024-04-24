@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AgencyService.Adapter.API.Controllers;
 
 [ApiController]
-[Route("api/travelAgencies")]
+[Route("api/travel-agencies")]
 public sealed class TravelAgencyController : ControllerBase
 {
     private readonly ISender _sender;

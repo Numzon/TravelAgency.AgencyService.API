@@ -34,10 +34,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solutionItems", "solutionItems", "{B5C90308-B986-41C4-BEC8-13B5EA9A9252}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		nuget.config = nuget.config
 		README.txt = README.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgencyService.Core.Application.IntegrationTests", "AgencyService.Core.Application.IntegrationTests\AgencyService.Core.Application.IntegrationTests.csproj", "{612FDD53-CB43-48DD-9D9E-997266ED3A6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgencyService.Core.Application.IntegrationTests", "AgencyService.Core.Application.IntegrationTests\AgencyService.Core.Application.IntegrationTests.csproj", "{612FDD53-CB43-48DD-9D9E-997266ED3A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgencyService.Adapter.RabbitMQ", "AgencyService.Adapter.RabbitMQ\AgencyService.Adapter.RabbitMQ.csproj", "{0C585E06-079D-4782-908A-28AC61169D3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +84,10 @@ Global
 		{612FDD53-CB43-48DD-9D9E-997266ED3A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{612FDD53-CB43-48DD-9D9E-997266ED3A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{612FDD53-CB43-48DD-9D9E-997266ED3A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C585E06-079D-4782-908A-28AC61169D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C585E06-079D-4782-908A-28AC61169D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C585E06-079D-4782-908A-28AC61169D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C585E06-079D-4782-908A-28AC61169D3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +106,7 @@ Global
 		{8195226A-4B23-47A2-A01E-0F010271AD2C} = {78DD95FA-E340-4AEC-A436-EB83EA02A357}
 		{3387979D-7820-47FD-AEED-D91F6466742B} = {55B834A0-B5E0-4394-A05E-DFA756B6CD10}
 		{612FDD53-CB43-48DD-9D9E-997266ED3A6D} = {3A22BD32-3D00-40C1-905C-816ED61E4B38}
+		{0C585E06-079D-4782-908A-28AC61169D3F} = {78DD95FA-E340-4AEC-A436-EB83EA02A357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F53E97C-BA5E-48BB-AB60-EB3BA1E0A44E}

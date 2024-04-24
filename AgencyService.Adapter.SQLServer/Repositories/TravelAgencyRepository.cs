@@ -13,9 +13,9 @@ public class TravelAgencyRepository : ITravelAgencyRepository
         _context = context;
     }
 
-    public async Task<TravelAgencyAccount> CreateAsync(CreateTravelAgencyCommand command, CancellationToken cancellationToken)
+    public async Task<TravelAgencyAccount> CreateAsync(string userId,CancellationToken cancellationToken)
     {
-        var agency = new TravelAgencyAccount { UserId = command.UserId };
+        var agency = new TravelAgencyAccount { UserId = userId };
 
         await _context.TravelAgencyAccount.AddAsync(agency, cancellationToken);
         await _context.SaveChangesAsync();

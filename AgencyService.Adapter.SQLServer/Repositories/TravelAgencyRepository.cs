@@ -23,8 +23,4 @@ public class TravelAgencyRepository : ITravelAgencyRepository
         return agency;
     }
 
-    //public async Task<TravelAgencyAccount> GetByFilterAsync(CancellationToken cancellationToken)
-    //{
-
-    //}
 }

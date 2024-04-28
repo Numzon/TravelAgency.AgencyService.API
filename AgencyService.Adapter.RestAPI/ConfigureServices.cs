@@ -1,6 +1,7 @@
 ﻿using AgencyService.Adapter.API.Mapster;
 using AgencyService.Adapter.API.Middlewares;
 using Amazon;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,21 +23,17 @@ public static class ConfigureServices
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddAndConfigureSwagger(assembly.GetName().Name!);
 
-        var cognitoConfiguration = builder.Configuration.GetRequiredSection("AWS:Cognito").Get<AwsCognitoSettingsDto>()!;
+        //try
+        //{
+        //    var cognitoConfiguration = builder.Configuration.GetRequiredSection("AWS:Cognito").Get<AwsCognitoSettingsDto>();
+        //    builder.Services.AddAuthenticationAndJwtConfiguration(cognitoConfiguration!);
+        //}
+        //catch (Exception ex)
+        //{
+        //    Log.Error(ex.Message);
+        //}
 
-        try
-        {
-            builder.Services.AddAuthenticationAndJwtConfiguration(cognitoConfiguration);
-        }
-        catch (Exception ex)
-        {
-            if (!builder.Environment.IsDevelopment())
-            {
-                Log.Error(ex.Message);
-            }
-        }
-
-        builder.Services.AddAuthorizationWithPolicies();
+        //builder.Services.AddAuthorizationWithPolicies();
         builder.Services.RegisterMapsterConfiguration();
 
         return builder;
@@ -52,9 +49,9 @@ public static class ConfigureServices
 
         app.UseHttpsRedirection();
 
-        app.UseAuthentication();
+        //app.UseAuthentication();
 
-        app.UseAuthorization();
+        //app.UseAuthorization();
 
         app.MapControllers();
 

@@ -1,4 +1,5 @@
 ﻿using AgencyService.Core.Application.Common.Interfaces;
+using AgencyService.Core.Application.Common.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using System.Runtime.Serialization;
@@ -36,16 +37,16 @@ public sealed class FluentValidationException : Exception, IExceptionStrategy
     {
         base.GetObjectData(info, context);
         info.AddValue("statusCode", _statusCode);
-        info.AddValue("validationErrors", _errors, typeof(IDictionary<string,string>));
+        info.AddValue("validationErrors", _errors, typeof(IDictionary<string, string>));
     }
 
     public async Task ModifyAndWriteAsJsonAsync(HttpResponse response)
     {
         response.ContentType = "application/json";
         response.StatusCode = _statusCode;
-        await response.WriteAsJsonAsync(new
+        await response.WriteAsJsonAsync(new ValidationExceptionDto
         {
-            Message,
+            Message = Message,
             Errors = _errors
         });
     }

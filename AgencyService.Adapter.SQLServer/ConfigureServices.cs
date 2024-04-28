@@ -19,13 +19,11 @@ public static class ConfigureServices
 {
     public static WebApplicationBuilder AddSqlServerServices(this WebApplicationBuilder builder)
     {
-        var awsEnv = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_ID");
-
         builder.Configuration.AddAndConfigureSecretManager(builder.Environment, RegionEndpoint.EUNorth1);
 
         var connectionString = builder.Configuration.GetConnectionString("AgencyServiceDatabase");
 
-        if (string.IsNullOrEmpty(connectionString) || awsEnv is null)
+        if (string.IsNullOrEmpty(connectionString))
         {
             connectionString = builder.BuildConnectionStringFromUserSecrets();
         }

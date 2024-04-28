@@ -1,4 +1,5 @@
 ﻿using AgencyService.Core.Application.Common.Interfaces;
+using AgencyService.Core.Application.Common.Models;
 using Microsoft.AspNetCore.Http;
 using System.Runtime.Serialization;
 
@@ -29,9 +30,9 @@ public sealed class NotFoundException : Exception, IExceptionStrategy
     {
         response.ContentType = "application/json";
         response.StatusCode = _statusCode;
-        await response.WriteAsJsonAsync(new
+        await response.WriteAsJsonAsync(new ExceptionDto
         {
-            Message
+            Message = Message
         });
     }
 }

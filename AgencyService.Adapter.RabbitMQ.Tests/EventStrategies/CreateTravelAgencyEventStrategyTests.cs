@@ -20,7 +20,7 @@ public sealed class CreateTravelAgencyEventStrategyTests
         _serviceProvider = new Mock<IServiceProvider>();
         _repository = new Mock<ITravelAgencyRepository>();
 
-        _repository.Setup(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_fixture.Create<TravelAgencyAccount>());
+        _repository.Setup(x => x.CreateAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_fixture.Create<TravelAgencyAccount>());
         _serviceScope.Setup(x => x.ServiceProvider).Returns(_serviceProvider.Object);
         _serviceProvider.Setup(x => x.GetService(It.IsAny<Type>())).Returns(_repository.Object);
     }

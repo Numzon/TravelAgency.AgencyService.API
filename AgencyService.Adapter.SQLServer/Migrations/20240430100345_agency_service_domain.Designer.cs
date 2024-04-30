@@ -4,6 +4,7 @@ using AgencyService.Adapter.SQLServer.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgencyService.Adapter.SQLServer.Migrations
 {
     [DbContext(typeof(AgencyServiceDbContext))]
-    partial class AgencyServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240430100345_agency_service_domain")]
+    partial class agency_service_domain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

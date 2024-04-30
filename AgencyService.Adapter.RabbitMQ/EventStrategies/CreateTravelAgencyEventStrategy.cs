@@ -1,7 +1,7 @@
-﻿using AgencyService.Core.Application.Ports.Driven;
+﻿using AgencyService.Adapter.RabbitMQ.Models;
+using AgencyService.Core.Application.Ports.Driven;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
-using TravelAgency.SharedLibrary.Models;
 using TravelAgency.SharedLibrary.RabbitMQ.Interfaces;
 
 namespace AgencyService.Adapter.RabbitMQ.EventStrategies;
@@ -17,6 +17,8 @@ public sealed class CreateTravelAgencyEventStrategy : IEventStrategy
         }
 
         var repository = scope.ServiceProvider.GetRequiredService<ITravelAgencyRepository>();
-        await repository.CreateAsync(travelAgencyData.UserId, default);
+
+        //TO DO
+        await repository.CreateAsync(travelAgencyData.UserId, travelAgencyData.AgencyName, default);
     }
 }

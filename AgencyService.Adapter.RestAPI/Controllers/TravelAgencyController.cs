@@ -1,8 +1,4 @@
-﻿using AgencyService.Adapter.API.Models;
-using AgencyService.Core.Application.Ports.Driving.TravelAgencies.Commands;
-using Mapster;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgencyService.Adapter.API.Controllers;
@@ -18,19 +14,19 @@ public sealed class TravelAgencyController : ControllerBase
         _sender = sender;
     }
 
-    [HttpPost]
-    public async Task<IResult> CreateAsync(CreateTravelAgencyCommand command, CancellationToken cancellationToken = default)
-    {
-        var agency = await _sender.Send(command, cancellationToken);
+    //[HttpPost]
+    //public async Task<IResult> CreateAsync(CreateTravelAgencyCommand command, CancellationToken cancellationToken = default)
+    //{
+    //    var agency = await _sender.Send(command, cancellationToken);
 
-        return Results.CreatedAtRoute(nameof(GetAsync), new { id = agency.Id }, agency.Adapt<TravelAgencyDto>());
-    }
+    //    return Results.CreatedAtRoute(nameof(GetAsync), new { id = agency.Id }, agency.Adapt<TravelAgencyDto>());
+    //}
 
-    [HttpGet("{id}", Name = nameof(GetAsync))]
-    public async Task<IResult> GetAsync(int id, CancellationToken cancellationToken = default)
-    {
-        //var agency = await _sender.Send(command, cancellationToken);
+    //[HttpGet("{id}", Name = nameof(GetAsync))]
+    //public async Task<IResult> GetAsync(int id, CancellationToken cancellationToken = default)
+    //{
+    //    //var agency = await _sender.Send(command, cancellationToken);
 
-        return Results.Ok();
-    }
+    //    return Results.Ok();
+    //}
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AgencyService.Adapter.SQLServer.Persistance.Configurations;
-public sealed class TravelAgencyAccountConfiguration : IEntityTypeConfiguration<TravelAgencyAccount>
+public sealed class TravelAgencyConfiguration : IEntityTypeConfiguration<TravelAgencyAccount>
 {
     public void Configure(EntityTypeBuilder<TravelAgencyAccount> builder)
     {
@@ -11,5 +11,14 @@ public sealed class TravelAgencyAccountConfiguration : IEntityTypeConfiguration<
 
         builder.Property(x => x.UserId)
             .IsRequired();
+
+        builder.Property(x => x.Status)
+            .IsRequired();
+
+        builder.OwnsOne(x => x.CompanyData);
+
+        builder.HasOne(x => x.BankAccountData)
+            .WithOne(x => x.TravelAgency)
+            .HasForeignKey<TravelAgencyAccount>(x => x.BankAccountDataId);
     }
 }

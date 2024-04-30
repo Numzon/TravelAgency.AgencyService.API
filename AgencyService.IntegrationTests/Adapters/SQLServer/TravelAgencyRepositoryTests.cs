@@ -21,9 +21,10 @@ public sealed class TravelAgencyRepositoryTests : BaseIntegrationTest<AgencyServ
             var repository = scope.ServiceProvider.GetService<ITravelAgencyRepository>() ?? throw new InvalidOperationException("ITravelAgencyRepository cannot be null");
             var db = scope.ServiceProvider.GetService<AgencyServiceDbContext>() ?? throw new InvalidOperationException("AgencyServiceDbContext cannot be null");
             var userId = Fixture.Create<string>();
+            var name = Fixture.Create<string>();
 
             //act
-            var entity = await repository.CreateAsync(userId, default);
+            var entity = await repository.CreateAsync(userId, name, default);
 
             //assess
             var fetched = await db.TravelAgencyAccount.FirstOrDefaultAsync(x => x.UserId == userId);
@@ -50,9 +51,10 @@ public sealed class TravelAgencyRepositoryTests : BaseIntegrationTest<AgencyServ
             using IServiceScope scope = TestServer.Services.CreateScope();
             var repository = scope.ServiceProvider.GetService<ITravelAgencyRepository>() ?? throw new InvalidOperationException("ITravelAgencyRepository cannot be null");
             string userId = null!;
+            string name = null!;
 
             //act assess
-            await repository.Invoking(x => x.CreateAsync(userId, default)).Should().ThrowAsync<DbUpdateException>();
+            await repository.Invoking(x => x.CreateAsync(userId, name, default)).Should().ThrowAsync<DbUpdateException>();
 
             //cleanup
             await ResetDatabaseAsync();

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AgencyService.Core.Domain\AgencyService.Core.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Ports\Driving\TravelAgencies\Commands\" />
+  </ItemGroup>
+
 </Project>

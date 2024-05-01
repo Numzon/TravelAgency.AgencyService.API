@@ -1,9 +1,9 @@
 ﻿using AgencyService.Adapter.RabbitMQ.EventStrategies;
+using AgencyService.Adapter.RabbitMQ.Models;
 using AgencyService.Core.Application.Ports.Driven;
 using AgencyService.Core.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
-using TravelAgency.SharedLibrary.Models;
 
 namespace AgencyService.Adapter.RabbitMQ.Tests.EventStrategies;
 public sealed class CreateTravelAgencyEventStrategyTests 
@@ -31,7 +31,7 @@ public sealed class CreateTravelAgencyEventStrategyTests
         string message = null!;
         var strategy = new CreateTravelAgencyEventStrategy();
 
-        await strategy.Invoking(x => x.ExecuteEvent(_serviceScope.Object, message)).Should().ThrowAsync<ArgumentNullException>();
+        await strategy.Invoking(x => x.ExecuteEvent(_serviceScope.Object, message, default)).Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -41,6 +41,6 @@ public sealed class CreateTravelAgencyEventStrategyTests
         var publishedDto = _fixture.Create<TravelAgencyPublishedDto>();
         var message = JsonSerializer.Serialize(publishedDto);
 
-        await strategy.Invoking(x => x.ExecuteEvent(_serviceScope.Object, message)).Should().NotThrowAsync();
+        await strategy.Invoking(x => x.ExecuteEvent(_serviceScope.Object, message, default)).Should().NotThrowAsync();
     }
 }

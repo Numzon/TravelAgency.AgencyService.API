@@ -10,6 +10,7 @@ public static class EventReceiverConfig
         var config = TypeEventStrategyConfig.GlobalSetting;
 
         config.NewConfig<CreateTravelAgencyEventStrategy>(EventTypes.TravelAgencyUserCreated);
+        config.NewConfig<CreateManagerEventStrategy>(EventTypes.ManagerCreated);
 
         return config;
     }

@@ -13,6 +13,7 @@ public sealed class AgencyServiceDbContext : DbContext, IAgencyServiceDbContext
     private readonly BaseAuditableEntitySaveChangesInterceptor _baseAuditableEntitySaveChangesInterceptor;
 
     public DbSet<TravelAgencyAccount> TravelAgencyAccount { get; set; }
+    public DbSet<Manager> Manager { get; set; }
 
     public AgencyServiceDbContext(DbContextOptions<AgencyServiceDbContext> options,
        IMediator mediator,

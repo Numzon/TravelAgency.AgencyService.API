@@ -1,4 +1,5 @@
 ﻿using AgencyService.Adapter.RabbitMQ.Configs;
+using AgencyService.Adapter.RabbitMQ.Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ public static class ConfigureServices
 {
     public static WebApplicationBuilder AddRabbitMQServices(this WebApplicationBuilder builder)
     {
+        builder.Services.RegisterMapsterConfiguration();
+
         builder.Services.Configure<RabbitMqSettingsDto>(builder.Configuration.GetRequiredSection("RabbitMQ"));
 
         builder.Services.AddRabbitMqPublisher();

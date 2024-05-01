@@ -7,8 +7,10 @@ using TravelAgency.SharedLibrary.RabbitMQ.Interfaces;
 namespace AgencyService.Adapter.RabbitMQ.EventStrategies;
 public sealed class CreateTravelAgencyEventStrategy : IEventStrategy
 {
-    public async Task ExecuteEvent(IServiceScope scope, string message)
+    public async Task ExecuteEvent(IServiceScope scope, string message, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var travelAgencyData = JsonSerializer.Deserialize<TravelAgencyPublishedDto>(message);
 
         if (travelAgencyData is null)
@@ -18,7 +20,6 @@ public sealed class CreateTravelAgencyEventStrategy : IEventStrategy
 
         var repository = scope.ServiceProvider.GetRequiredService<ITravelAgencyRepository>();
 
-        //TO DO
         await repository.CreateAsync(travelAgencyData.UserId, travelAgencyData.AgencyName, default);
     }
 }

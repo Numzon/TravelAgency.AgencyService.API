@@ -5,6 +5,7 @@ namespace AgencyService.Adapter.SQLServer.Interfaces;
 public interface IAgencyServiceDbContext
 {
     DbSet<TravelAgencyAccount> TravelAgencyAccount { get; set; }
+    DbSet<Manager> Manager { get; set; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

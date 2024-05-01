@@ -1,8 +1,10 @@
 ﻿using AgencyService.Adapter.SQLServer.Interfaces;
+using AgencyService.Adapter.SQLServer.Mapster;
 using AgencyService.Adapter.SQLServer.Persistance;
 using AgencyService.Adapter.SQLServer.Persistance.Interceptors;
 using AgencyService.Adapter.SQLServer.Repositories;
 using AgencyService.Core.Application.Ports.Driven;
+using AgencyService.Core.Application.Ports.Driven.Repositories;
 using Amazon;
 using LinqKit;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +41,8 @@ public static class ConfigureServices
 
         builder.Services.AddScoped<IAgencyServiceDbContext, AgencyServiceDbContext>();
 
+        builder.Services.RegisterMapsterConfiguration();
+
         return builder;
     }
 
@@ -60,6 +64,7 @@ public static class ConfigureServices
     private static IServiceCollection RegisterRepositories(this IServiceCollection services)
     {
         services.AddScoped<ITravelAgencyRepository, TravelAgencyRepository>();
+        services.AddScoped<IManagerRepository, ManagerRepository>();
 
         return services;
     }

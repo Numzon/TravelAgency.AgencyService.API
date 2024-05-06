@@ -23,18 +23,18 @@ public static class ConfigureServices
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddAndConfigureSwagger(assembly.GetName().Name!);
 
-        //try
-        //{
-        //    var cognitoConfiguration = builder.Configuration.GetRequiredSection("AWS:Cognito").Get<AwsCognitoSettingsDto>();
-        //    builder.Services.AddAuthenticationAndJwtConfiguration(cognitoConfiguration!);
-        //}
-        //catch (Exception ex)
-        //{
-        //    Log.Error(ex.Message);
-        //}
+        try
+        {
+            var cognitoConfiguration = builder.Configuration.GetRequiredSection("AWS:Cognito").Get<AwsCognitoSettingsDto>();
+            builder.Services.AddAuthenticationAndJwtConfiguration(cognitoConfiguration!);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message);
+        }
 
-        //builder.Services.AddAuthorizationWithPolicies();
-        builder.Services.RegisterMapsterConfiguration();
+        builder.Services.AddAuthorizationWithPolicies();
+        builder.Services.RegisterApiMapsterConfiguration();
 
         return builder;
     }
@@ -49,9 +49,9 @@ public static class ConfigureServices
 
         app.UseHttpsRedirection();
 
-        //app.UseAuthentication();
+        app.UseAuthentication();
 
-        //app.UseAuthorization();
+        app.UseAuthorization();
 
         app.MapControllers();
 

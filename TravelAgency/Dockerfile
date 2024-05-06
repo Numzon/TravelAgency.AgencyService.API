@@ -7,11 +7,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["nuget.config", ""]
+COPY ["nuget.config", "."]
 COPY ["TravelAgency/TravelAgency.AgencyService.csproj", "TravelAgency/"]
-COPY ["AgencyService.Adapter.RestAPI/AgencyService.Adapter.API.csproj", "AgencyService.Adapter.RestAPI/"]
+COPY ["AgencyService.Adapter.RabbitMQ/AgencyService.Adapter.RabbitMQ.csproj", "AgencyService.Adapter.RabbitMQ/"]
 COPY ["AgencyService.Core.Application/AgencyService.Core.Application.csproj", "AgencyService.Core.Application/"]
 COPY ["AgencyService.Core.Domain/AgencyService.Core.Domain.csproj", "AgencyService.Core.Domain/"]
+COPY ["AgencyService.Adapter.RestAPI/AgencyService.Adapter.API.csproj", "AgencyService.Adapter.RestAPI/"]
 COPY ["AgencyService.Adapter.SQLServer/AgencyService.Adapter.SQLServer.csproj", "AgencyService.Adapter.SQLServer/"]
 RUN dotnet restore "TravelAgency/TravelAgency.AgencyService.csproj"
 COPY . .

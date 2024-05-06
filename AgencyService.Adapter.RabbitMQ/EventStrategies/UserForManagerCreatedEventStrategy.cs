@@ -1,29 +1,25 @@
 ﻿using AgencyService.Adapter.RabbitMQ.Models;
-using AgencyService.Core.Application.Common.Models;
 using AgencyService.Core.Application.Ports.Driven.Repositories;
-using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
 using TravelAgency.SharedLibrary.RabbitMQ.Interfaces;
 
 namespace AgencyService.Adapter.RabbitMQ.EventStrategies;
-public class CreateManagerEventStrategy : IEventStrategy
+public class UserForManagerCreatedEventStrategy : IEventStrategy
 {
     public async Task ExecuteEvent(IServiceScope scope, string message, CancellationToken cancellationToken)
     {
-        cancellationToken.ThrowIfCancellationRequested();   
+        cancellationToken.ThrowIfCancellationRequested();
 
-        var manager  = JsonSerializer.Deserialize<ManagerPublishedDto>(message);
+        var publishedDto = JsonSerializer.Deserialize<UserForManagerCreatedPublishedDto>(message);
 
-        if (manager is null)
+        if (publishedDto is null)
         {
-            throw new InvalidOperationException("Manager object cannot be null");
+            throw new InvalidOperationException("UserForManager object cannot be null");
         }
 
         var repository = scope.ServiceProvider.GetRequiredService<IManagerRepository>();
 
-        var createManagerDto = manager.Adapt<CreateManagerDto>();
-
-        await repository.CreateAsync(createManagerDto, cancellationToken); 
+        await repository.UpdateUserIdAsync(publishedDto.ManagerId, publishedDto.UserId, cancellationToken);
     }
 }

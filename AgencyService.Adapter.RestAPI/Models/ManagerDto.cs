@@ -1,8 +1,8 @@
-﻿namespace AgencyService.Core.Application.Common.Models;
-public class CreateManagerDto
+﻿namespace AgencyService.Adapter.API.Models;
+public class ManagerDto
 {
-    public required string UserId { get; set; }
-    public required string Email { get; set; }
+    public int Id { get; set; }
+    public string? UserId { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string Group { get; set; }

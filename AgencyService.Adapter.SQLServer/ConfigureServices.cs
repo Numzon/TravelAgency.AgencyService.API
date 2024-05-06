@@ -1,11 +1,9 @@
 ﻿using AgencyService.Adapter.SQLServer.Interfaces;
-using AgencyService.Adapter.SQLServer.Mapster;
 using AgencyService.Adapter.SQLServer.Persistance;
 using AgencyService.Adapter.SQLServer.Persistance.Interceptors;
 using AgencyService.Adapter.SQLServer.Repositories;
 using AgencyService.Core.Application.Ports.Driven;
 using AgencyService.Core.Application.Ports.Driven.Repositories;
-using Amazon;
 using LinqKit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +12,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Data.Common;
-using TravelAgency.SharedLibrary.AWS;
 
 namespace AgencyService.Adapter.SQLServer;
 public static class ConfigureServices
 {
     public static WebApplicationBuilder AddSqlServerServices(this WebApplicationBuilder builder)
     {
-        builder.Configuration.AddAndConfigureSecretManager(builder.Environment, RegionEndpoint.EUNorth1);
+        //builder.Configuration.AddAndConfigureSecretManager(builder.Environment, RegionEndpoint.EUNorth1);
 
         var connectionString = builder.Configuration.GetConnectionString("AgencyServiceDatabase");
 
@@ -40,8 +37,6 @@ public static class ConfigureServices
         builder.Services.RegisterRepositories();
 
         builder.Services.AddScoped<IAgencyServiceDbContext, AgencyServiceDbContext>();
-
-        builder.Services.RegisterMapsterConfiguration();
 
         return builder;
     }

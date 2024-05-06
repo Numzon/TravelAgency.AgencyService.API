@@ -5,6 +5,11 @@ using AgencyService.Core.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration.AddJsonFile("secrets/appsettings.Production.json", optional: true);
+}
+
 builder.AddApiServices(typeof(Program).Assembly);
 builder.AddApplicationServices();
 builder.AddSqlServerServices();

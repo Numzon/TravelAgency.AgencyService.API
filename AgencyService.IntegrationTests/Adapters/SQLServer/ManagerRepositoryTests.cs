@@ -1,11 +1,10 @@
 ﻿using AgencyService.Adapter.SQLServer.IntegrationTests.Configuration;
 using AgencyService.Adapter.SQLServer.Persistance;
 using AgencyService.Core.Application.Common.Models;
-using AgencyService.Core.Application.Ports.Driven;
 using AgencyService.Core.Application.Ports.Driven.Repositories;
+using AgencyService.Core.Application.Ports.Driving.Managers.Commands.CreateManager;
 using AgencyService.Core.Domain.Entities;
 using AgencyService.IntegrationTests.Configuration;
-using AutoFixture;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,19 +40,17 @@ public sealed class ManagerRepositoryTests : BaseIntegrationTest<AgencyServiceDb
             await db.TravelAgencyAccount.AddAsync(travelAgency);
             await db.SaveChangesAsync();
 
-            var managerDto = Fixture.Build<CreateManagerDto>().With(x => x.TravelAgencyId, travelAgency.Id).Create();
+            var managerDto = Fixture.Build<CreateManagerCommand>().With(x => x.TravelAgencyId, travelAgency.Id).Create();
 
             //act
             var entity = await repository.CreateAsync(managerDto, default);
 
             //assess
-            var fetched = await db.Manager.FirstOrDefaultAsync(x => x.UserId == managerDto.UserId);
+            var fetched = await db.Manager.FirstOrDefaultAsync(x => x.Id == entity.Id);
             entity.Should().NotBeNull();
             entity.Id.Should().NotBe(0);
-            entity.UserId.Should().Be(managerDto.UserId);
             fetched.Should().NotBeNull();
             fetched!.Id.Should().Be(entity.Id);
-            fetched!.UserId.Should().Be(managerDto.UserId);
             fetched!.TravelAgencyId.Should().Be(managerDto.TravelAgencyId);
 
             //cleanup

@@ -16,14 +16,12 @@ public static class ConfigureServices
 
         builder.Services.Configure<RabbitMqSettingsDto>(builder.Configuration.GetRequiredSection("RabbitMQ"));
 
-        builder.Services.AddRabbitMqPublisher();
-
         builder.Services.AddSingleton(EventReceiverConfig.GetGlobalSettingsConfiguration());
 
         try
         {
             var settings = builder.Configuration.GetRequiredSection("RabbitMQ").Get<RabbitMqSettingsDto>();
-            builder.Services.AddRabbitMqSubscriber(settings!);
+            builder.Services.AddRabbitMqConfiguration(settings!);
         }
         catch (Exception ex)
         {

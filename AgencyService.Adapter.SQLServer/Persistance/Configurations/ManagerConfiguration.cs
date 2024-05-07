@@ -9,8 +9,7 @@ public sealed class ManagerConfiguration : IEntityTypeConfiguration<Manager>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.UserId)
-            .IsRequired();
+        builder.Property(x => x.UserId);
 
         builder.OwnsOne(x => x.PersonalData);
 

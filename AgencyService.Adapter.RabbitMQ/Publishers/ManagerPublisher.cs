@@ -14,11 +14,11 @@ public sealed class ManagerPublisher : IManagerPublisher
         _publisher = publisher;
     }
 
-    public async Task PublishManagerCreated(string email, string group, CancellationToken cancellationToken)
+    public async Task PublishManagerCreated(int managerId, string email, string group, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var model = new ManagerCreatedPublishedDto { Event = EventTypes.ManagerCreated, Email = email, Group = group };
+        var model = new ManagerCreatedPublishedDto { Event = EventTypes.ManagerCreated, Email = email, Group = group, ManagerId = managerId };
         var message = JsonSerializer.Serialize(model);
         await _publisher.Publish(message);
     }

@@ -3,7 +3,6 @@ public sealed class Manager : BaseAuditableEntity
 {
     public string? UserId { get; set; }
     public required string Email { get; set; }
-    public required string Group { get; set; }
     public required PersonalData PersonalData { get; set; }
 
     public int TravelAgencyId { get; set; }

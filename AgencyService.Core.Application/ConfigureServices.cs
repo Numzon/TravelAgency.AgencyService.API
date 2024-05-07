@@ -1,4 +1,5 @@
-﻿using AgencyService.Core.Application.Common.Behaviours;
+﻿using AgencyService.Adapter.SQLServer.Mapster;
+using AgencyService.Core.Application.Common.Behaviours;
 using AgencyService.Core.Application.Common.Interfaces;
 using AgencyService.Core.Application.Services;
 using FluentValidation;
@@ -19,6 +20,7 @@ public static class ConfigureServices
         });
 
         builder.Services.RegisterServices();
+        builder.Services.RegisterMapsterConfiguration();
 
         return builder;
     }
